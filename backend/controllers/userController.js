@@ -5,11 +5,13 @@ const jwt = require('jsonwebtoken');
 
 const generateToken = (user) => {
   return jwt.sign(
-    { id: user._id, role: user.role }, // 🔥 FIX
+    { id: user._id, role: user.role },
     process.env.JWT_SECRET,
     { expiresIn: "7d" }
   );
 };
+
+//register
 
 exports.registerUser = async (req, res) => {
   try {
@@ -57,6 +59,10 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+//login
+
 
 exports.loginUser = async (req, res) => {
   try {

@@ -88,7 +88,7 @@ exports.getPublishedBlogs = async (req, res) => {
 
 
 
-//  MY BLOGS (Draft + Published)
+//  MY BLOGS 
 exports.getMyBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find({ user: req.user.id })

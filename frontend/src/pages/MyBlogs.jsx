@@ -147,7 +147,7 @@ export default function MyBlogs() {
                     {/* ✅ Delete Button */}
                     <button
                       onClick={() => handleDelete(blog._id)}
-                      className="px-3 py-1.5 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition shadow"
+                      className="px-3 py-1.5 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition shadow cursor-pointer"
                     >
                       Delete
                     </button>
@@ -156,7 +156,7 @@ export default function MyBlogs() {
                     {!blog.isPublished && (
                       <button
                         onClick={() => handlePublish(blog._id)}
-                        className="px-3 py-1.5 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition shadow"
+                        className="px-3 py-1.5 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition shadow cursor-pointer"
                       >
                         Publish
                       </button>

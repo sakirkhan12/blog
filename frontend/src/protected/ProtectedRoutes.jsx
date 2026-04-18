@@ -8,19 +8,19 @@ export const ProtectedRoute = ({ children }) => {
   return isAuth ? children : <Navigate to="/login" />;
 };
 
-// 👤 Only User
+// Only User
 export const UserRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
   return user?.role === "user" ? children : <Navigate to="/login" />;
 };
 
-// 👑 Only Admin
+//  Only Admin
 export const AdminRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
   return user?.role === "admin" ? children : <Navigate to="/login" />;
 };
 
-// ❌ Public routes (login/register)
+//  Public routes (login/register)
 export const PublicRoute = ({ children }) => {
   const { isAuth, user } = useContext(AuthContext);
 

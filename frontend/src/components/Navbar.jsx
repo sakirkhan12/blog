@@ -38,7 +38,7 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            {/* 👤 USER NAVBAR */}
+            {/*  USER NAVBAR */}
             {user?.role === "user" && (
               <>
                 <Link to="/home" className="px-4 py-2 text-gray-700 hover:text-purple-600">
@@ -55,7 +55,7 @@ export default function Navbar() {
               </>
             )}
 
-            {/* 👑 ADMIN NAVBAR */}
+            {/*  ADMIN NAVBAR */}
             {user?.role === "admin" && (
               <>
                 <Link to="/admin/dashboard" className="px-4 py-2 text-gray-700 hover:text-purple-600">

@@ -4,15 +4,19 @@ import Cookies from "js-cookie";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(!!Cookies.get("token"));
+  const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const token = Cookies.get("token");
     const storedUser = localStorage.getItem("user");
 
-    if (storedUser) {
+    if (token && storedUser) {
       setUser(JSON.parse(storedUser));
       setIsAuth(true);
+    } else {
+      setUser(null);
+      setIsAuth(false);
     }
   }, []);
 
