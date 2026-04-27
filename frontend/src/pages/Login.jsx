@@ -6,7 +6,7 @@ import API from "../services/api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { setIsAuth, setUser } = useContext(AuthContext); // ✅ add setUser
+  const { setIsAuth, setUser } = useContext(AuthContext); 
 
   const {
     register,
@@ -16,17 +16,19 @@ export default function LoginPage() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await API.post("users/login", data); // ✅ response lo
+      const res = await API.post("users/login", data); 
 
       alert("Login Success");
 
       setIsAuth(true);
-      setUser(res.data.user); // ✅ user store
+      setUser(res.data.user); 
+     
 
-      // ✅ localStorage me save
+      
       localStorage.setItem("user", JSON.stringify(res.data.user));
+       console.log("login Success")
 
-      // ✅ role-based redirect
+      
       if (res.data.user.role === "admin") {
         navigate("/admin/dashboard");
       } else {
@@ -85,7 +87,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full bg-linear-to-r from-purple-500 to-indigo-500 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition"
+            className="w-full bg-linear-to-r from-purple-500 to-indigo-500 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition cursor-pointer"
           >
             Login
           </button>
@@ -95,7 +97,7 @@ export default function LoginPage() {
           Don't have an account?
           <button
             onClick={() => navigate("/register")}
-            className="ml-2 text-purple-600 font-semibold hover:underline"
+            className="ml-2 text-purple-600 font-semibold hover:underline cursor-pointer"
           >
             Register
           </button>

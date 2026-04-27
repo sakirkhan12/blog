@@ -18,7 +18,7 @@ const blogSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    isPublished: {           // 👈 NEW FIELD
+    isPublished: {          
       type: Boolean,
       default: false,        // default = draft
     },

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import Cookies from "js-cookie";
+import API from "../services/api";
 
 export const AuthContext = createContext();
 
@@ -8,16 +8,23 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    const storedUser = localStorage.getItem("user");
+    const checkAuth = async () => {
+      try {
+        const res = await API.get("/users/profile");
+        setUser(res.data.user);
+        setIsAuth(true);
+        console.log(res.data.message)
+      } catch (error) {
+        setUser(null);
+        setIsAuth(false);
+        console.log(
+          "Error:",
+          error.response?.data?.message || error.message
+        );
+      }
+    };
 
-    if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
-      setIsAuth(true);
-    } else {
-      setUser(null);
-      setIsAuth(false);
-    }
+    checkAuth();
   }, []);
 
   return (

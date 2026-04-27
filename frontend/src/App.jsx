@@ -33,7 +33,8 @@ function App() {
       <Navbar />
       <Routes>
 
-        {/* ROOT */}
+        //root
+
         <Route
           path="/"
           element={
@@ -45,7 +46,8 @@ function App() {
           }
         />
 
-        {/* PUBLIC */}
+      // public 
+
         <Route
           path="/login"
           element={
@@ -64,7 +66,8 @@ function App() {
           }
         />
 
-        {/* USER */}
+        // user
+
         <Route
           path="/home"
           element={
@@ -101,7 +104,8 @@ function App() {
           }
         />
 
-        {/* COMMON */}
+        // common
+
         <Route
           path="/blog/:id"
           element={
@@ -111,7 +115,7 @@ function App() {
           }
         />
 
-        {/* ADMIN */}
+        // admin
         <Route
           path="/admin/dashboard"
           element={

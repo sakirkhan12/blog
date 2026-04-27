@@ -128,7 +128,7 @@ export default function EditBlog() {
             )}
           </div>
 
-          {/* Preview */}
+          
           {preview && (
             <div className="bg-gray-100 p-3 rounded-lg">
               <img
@@ -139,10 +139,10 @@ export default function EditBlog() {
             </div>
           )}
 
-          {/* Button */}
+          
           <button
             type="submit"
-            className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
+            className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition cursor-pointer"
           >
             Update Blog 
           </button>

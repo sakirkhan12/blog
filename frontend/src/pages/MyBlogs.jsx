@@ -21,7 +21,7 @@ export default function MyBlogs() {
     }
   };
 
-  // ✅ Publish Blog
+  
   const handlePublish = async (id) => {
     try {
       await API.put(`/blogs/publish/${id}`, {}, {
@@ -45,7 +45,7 @@ export default function MyBlogs() {
     }
   };
 
-  // ✅ Delete Blog
+  
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -136,15 +136,15 @@ export default function MyBlogs() {
 
                   <div className="flex gap-2 flex-wrap">
 
-                    {/* ✅ Edit Button */}
+                    
                     <Link
                       to={`/edit/${blog._id}`}
-                      className="px-3 py-1.5 text-sm border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition"
+                      className="px-3 py-1.5 text-sm border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition cursor-pointer"
                     >
                       Edit
                     </Link>
 
-                    {/* ✅ Delete Button */}
+                    
                     <button
                       onClick={() => handleDelete(blog._id)}
                       className="px-3 py-1.5 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition shadow cursor-pointer"
@@ -152,7 +152,7 @@ export default function MyBlogs() {
                       Delete
                     </button>
 
-                    {/* ✅ Publish Button */}
+                    
                     {!blog.isPublished && (
                       <button
                         onClick={() => handlePublish(blog._id)}
