@@ -14,6 +14,8 @@ export const AuthProvider = ({ children }) => {
         setUser(res.data.user);
         setIsAuth(true);
         console.log(res.data.message)
+        console.log(res.data.user)
+      
       } catch (error) {
         setUser(null);
         setIsAuth(false);

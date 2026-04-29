@@ -1,8 +1,8 @@
 const Blog = require("../models/blogModel");
-const {sendCongratulationsMail}=require('../utils/sendEmail')
+const Like = require("../models/likeModel");
+const { sendCongratulationsMail } = require("../utils/sendEmail");
 
-
-//  CREATE BLOG (Draft)
+// CREATE BLOG
 exports.createBlog = async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -12,7 +12,7 @@ exports.createBlog = async (req, res) => {
       content,
       image: req.file ? req.file.filename : null,
       user: req.user.id,
-      isPublished: false // default draft
+      isPublished: false,
     });
 
     res.status(201).json(blog);
@@ -21,9 +21,7 @@ exports.createBlog = async (req, res) => {
   }
 };
 
-
-
-//  GET ALL BLOGS (Admin use)
+// GET ALL BLOGS
 exports.getAllBlogs = async (req, res) => {
   try {
     let { page = 1, limit = 6 } = req.query;
@@ -53,9 +51,7 @@ exports.getAllBlogs = async (req, res) => {
   }
 };
 
-
-
-// HOME PAGE (Only Published)
+// GET PUBLISHED BLOGS (HOME)
 exports.getPublishedBlogs = async (req, res) => {
   try {
     let { page = 1, limit = 6 } = req.query;
@@ -74,25 +70,45 @@ exports.getPublishedBlogs = async (req, res) => {
     const totalBlogs = await Blog.countDocuments({ isPublished: true });
     const totalPages = Math.ceil(totalBlogs / limit);
 
+    // 🔥 ADD isLiked
+    const userId = req.user?.id;
+
+    const updatedBlogs = await Promise.all(
+      blogs.map(async (blog) => {
+        let isLiked = false;
+
+        if (userId) {
+          const liked = await Like.findOne({
+            user: userId,
+            blog: blog._id,
+          });
+          isLiked = !!liked;
+        }
+
+        return {
+          ...blog.toObject(),
+          isLiked,
+        };
+      })
+    );
+
     res.json({
-      blogs,
+      blogs: updatedBlogs,
       totalPages,
       currentPage: page,
       totalBlogs,
     });
-
   } catch (err) {
     res.status(500).json({ message: "Error fetching blogs" });
   }
 };
 
-
-
-//  MY BLOGS 
+// MY BLOGS
 exports.getMyBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find({ user: req.user.id })
-      .sort({ createdAt: -1 });
+    const blogs = await Blog.find({ user: req.user.id }).sort({
+      createdAt: -1,
+    });
 
     res.json(blogs);
   } catch (err) {
@@ -100,45 +116,42 @@ exports.getMyBlogs = async (req, res) => {
   }
 };
 
-
-
-//  PUBLISH BLOG 
+// PUBLISH BLOG
 exports.publishBlog = async (req, res) => {
   try {
     const blog = await Blog.findByIdAndUpdate(
       req.params.id,
       { isPublished: true },
       { new: true }
-    ).populate("user"); //  user details le aao
+    ).populate("user");
 
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
     }
 
-    //  Email send karo
     try {
       await sendCongratulationsMail(
-        blog.user.email,   // user email
-        blog.user.name,    // user name
-        blog.title         // blog title
+        blog.user.email,
+        blog.user.name,
+        blog.title
       );
     } catch (emailError) {
       console.log("Email error:", emailError.message);
     }
 
     res.json({ message: "Blog published & email sent", blog });
-
   } catch (err) {
     res.status(500).json({ message: "Error publishing blog" });
   }
 };
 
-
-
-//  GET SINGLE BLOG
+// GET SINGLE BLOG
 exports.getBlogById = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
+    const blog = await Blog.findById(req.params.id).populate(
+      "user",
+      "name"
+    );
 
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
@@ -150,9 +163,7 @@ exports.getBlogById = async (req, res) => {
   }
 };
 
-
-
-//  DELETE BLOG
+// DELETE BLOG
 exports.deleteBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
@@ -169,9 +180,7 @@ exports.deleteBlog = async (req, res) => {
   }
 };
 
-
-
-//  UPDATE BLOG
+// UPDATE BLOG
 exports.updateBlog = async (req, res) => {
   try {
     const { title, content } = req.body;

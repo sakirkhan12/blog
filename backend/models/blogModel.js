@@ -18,9 +18,19 @@ const blogSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    isPublished: {          
+    isPublished: {
       type: Boolean,
-      default: false,        // default = draft
+      default: false,
+    },
+
+    
+    likesCount: {
+      type: Number,
+      default: 0,
+    },
+    commentsCount: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true }

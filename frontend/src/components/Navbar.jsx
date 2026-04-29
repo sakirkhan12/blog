@@ -74,12 +74,12 @@ export default function Navbar() {
 
             {/* NAME */}
             <span className="text-sm text-gray-600">
-              👤 {user?.name}
+              👤 {user.name}
             </span>
 
             <button
               onClick={handleLogout}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 cursor-pointer"
             >
               Logout
             </button>

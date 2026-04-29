@@ -32,7 +32,7 @@ exports.toggleBlockUser = async (req, res) => {
   }
 };
 
-// GET BLOGS (FIXED POPULATE)
+// GET BLOGS 
 exports.getAllBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find().populate("user", "name email");

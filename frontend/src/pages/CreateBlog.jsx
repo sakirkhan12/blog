@@ -40,7 +40,7 @@ export default function CreateBlog() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-r from-purple-500 to-indigo-600 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-r from-slate-900 via-purple-900 to-slate-800 p-4">
       <div className="bg-white w-full max-w-2xl p-8 rounded-2xl shadow-xl">
         <h1 className="text-3xl font-bold text-center text-purple-600 mb-2">
           Welcome to Create Blog Page 
