@@ -16,6 +16,6 @@ router.get("/profile", authMiddleware, (req, res) => {
     message: "Profile data, auto login with token verify by backend",
     user: req.user
   });
-});
+});  
 
-module.exports = router;
+module.exports = router; 

@@ -54,7 +54,7 @@ exports.getAllBlogs = async (req, res) => {
 // GET PUBLISHED BLOGS (HOME)
 exports.getPublishedBlogs = async (req, res) => {
   try {
-    let { page = 1, limit = 6 } = req.query;
+    let { page = 1, limit = 1 } = req.query;
 
     page = parseInt(page);
     limit = parseInt(limit);
@@ -67,10 +67,16 @@ exports.getPublishedBlogs = async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-    const totalBlogs = await Blog.countDocuments({ isPublished: true });
+    const totalBlogs = await Blog.countDocuments({
+      isPublished: true,
+    });
+
     const totalPages = Math.ceil(totalBlogs / limit);
 
-    // 🔥 ADD isLiked
+    //  INFINITE SCROLL FLAG
+    const hasMore = page < totalPages;
+
+    // ADD isLiked
     const userId = req.user?.id;
 
     const updatedBlogs = await Promise.all(
@@ -82,6 +88,7 @@ exports.getPublishedBlogs = async (req, res) => {
             user: userId,
             blog: blog._id,
           });
+
           isLiked = !!liked;
         }
 
@@ -94,12 +101,19 @@ exports.getPublishedBlogs = async (req, res) => {
 
     res.json({
       blogs: updatedBlogs,
+
+      // pagination data
       totalPages,
       currentPage: page,
       totalBlogs,
+
+      //  infinite scroll support
+      hasMore,
     });
   } catch (err) {
-    res.status(500).json({ message: "Error fetching blogs" });
+    res.status(500).json({
+      message: "Error fetching blogs",
+    });
   }
 };
 

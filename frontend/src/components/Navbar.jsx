@@ -40,7 +40,7 @@ export default function Navbar() {
           <>
             {/*  USER NAVBAR */}
             {user?.role === "user" && (
-              <>
+              <> 
                 <Link to="/home" className="px-4 py-2 text-gray-700 hover:text-purple-600">
                   Home
                 </Link>

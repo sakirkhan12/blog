@@ -147,7 +147,7 @@ export default function Home() {
 
                 </div>
 
-                {showComment === blog._id && (
+                {showComment === blog._id && ( 
                   <div className="mt-2">
                     <input
                       type="text"
@@ -195,7 +195,7 @@ export default function Home() {
         </button>
 
         <span className="font-medium">
-          Page {page} of {totalPages}
+          Page {page} of {totalPages} 
         </span>
 
         <button

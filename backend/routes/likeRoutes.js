@@ -9,4 +9,4 @@ router.post("/like", authMiddleware, toggleLike);
 
 router.get("/:blogId", getLikesByBlog);
 
-module.exports = router;
+module.exports = router;     

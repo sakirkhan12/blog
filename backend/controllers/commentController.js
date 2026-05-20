@@ -13,7 +13,7 @@ exports.addComment = async (req, res) => {
       text,
       user: req.user.id,
       blog: blogId,
-    });
+    }); 
 
     // count update
     await Blog.findByIdAndUpdate(blogId, {
@@ -25,7 +25,7 @@ exports.addComment = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+};  
 
 
 

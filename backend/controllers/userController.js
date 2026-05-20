@@ -26,7 +26,7 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({
         message: "Password must be at least 6 characters",
       });
-    }
+    } 
 
     const user = await User.create({
       name,
